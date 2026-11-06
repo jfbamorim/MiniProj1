@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jorge Amorim - CV</title>
+  <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Jorge Amorim</h1>
+      <nav>
+        <button @click="seccaoAtiva = 'quem'">Quem Sou Eu?</button>
+        <button @click="seccaoAtiva = 'faco'">O que faço?</button>
+        <button @click="seccaoAtiva = 'hobbies'">Hobbies</button>
+      </nav>
+    </header>
+
+    <main>
+      <section v-if="seccaoAtiva === 'quem'">
+        <h2>Quem Sou Eu?</h2>
+        <p>A preencher.</p>
+      </section>
+      <section v-if="seccaoAtiva === 'faco'">
+        <h2>O que faço?</h2>
+        <p>A preencher.</p>
+      </section>
+      <section v-if="seccaoAtiva === 'hobbies'">
+        <h2>Hobbies</h2>
+        <p>A preencher.</p>
+      </section>
+    </main>
+
+    <footer>
+      <a href="https://pt.linkedin.com/in/jorge-amorim-316969108">LinkedIn</a>
+      <a href="https://github.com/jfbamorim">GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const seccaoAtiva = ref('quem');
+        return { seccaoAtiva };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
