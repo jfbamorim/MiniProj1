@@ -5,6 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jorge Amorim - CV</title>
   <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+  <style>
+    :root {
+      --fundo: #f8f9fc;
+      --superficie: #ffffff;
+      --texto: #3d4160;
+      --texto-suave: #6b7092;
+      --destaque: #1f7a6f;
+      --linha: #e6e8f2;
+      --sombra: 0 4px 16px rgba(61, 65, 96, .08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', system-ui, sans-serif; color: var(--texto); background: var(--fundo); line-height: 1.7; }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--destaque); outline-offset: 3px; }
+    #app { min-height: 100vh; display: flex; flex-direction: column; }
+
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 2rem; border-bottom: 1px solid var(--linha); }
+    header h1 { font-size: 1.1rem; font-weight: 700; }
+    nav { display: flex; gap: 1.75rem; }
+    nav button { background: none; border: none; border-bottom: 2px solid transparent; padding: .25rem 0; color: var(--texto-suave); font-weight: 600; }
+    nav button:hover { color: var(--texto); }
+    nav button.ativo { color: var(--destaque); border-bottom-color: var(--destaque); }
+
+    main { flex: 1; width: 100%; max-width: 760px; margin: 3.5rem auto; padding: 0 1.5rem; }
+    h2 { font-size: 2.25rem; line-height: 1.2; margin-bottom: 1.75rem; }
+    h2::after { content: ''; display: block; width: 3rem; height: 4px; margin-top: .75rem; background: var(--destaque); border-radius: 2px; }
+    main p { color: var(--texto-suave); font-size: 1.1rem; }
+
+    .hobbies { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+    .hobbies button { width: 100%; padding: 1.5rem 1.25rem; text-align: left; font-weight: 600; color: var(--texto); background: var(--superficie); border: none; border-radius: 12px; box-shadow: var(--sombra); transition: transform .15s; }
+    .hobbies button:hover { transform: translateY(-3px); color: var(--destaque); }
+
+    .fundo { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: rgba(61, 65, 96, .45); }
+    .modal { width: 100%; max-width: 480px; padding: 2rem; background: var(--superficie); border-radius: 12px; box-shadow: 0 12px 40px rgba(61, 65, 96, .25); }
+    .modal h3 { font-size: 1.4rem; }
+    .modal p { margin: .75rem 0 1.5rem; color: var(--texto-suave); }
+    .primario { padding: .6rem 1.25rem; color: #fff; font-weight: 600; background: var(--destaque); border: none; border-radius: 8px; }
+
+    footer { display: flex; justify-content: center; gap: 2rem; padding: 2rem 1rem; border-top: 1px solid var(--linha); }
+    footer a { color: var(--texto-suave); font-weight: 600; text-decoration: none; }
+    footer a:hover { color: var(--destaque); }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -28,7 +71,7 @@
       </section>
       <section v-if="seccaoAtiva === 'hobbies'">
         <h2>Hobbies</h2>
-        <ul>
+        <ul class="hobbies">
           <li v-for="h in hobbies" :key="h.nome">
             <button @click="hobbyAberto = h">{{ h.nome }}</button>
           </li>
@@ -36,10 +79,12 @@
       </section>
     </main>
 
-    <div v-if="hobbyAberto">
-      <h3>{{ hobbyAberto.nome }}</h3>
-      <p>{{ hobbyAberto.texto }}</p>
-      <button @click="hobbyAberto = null">Fechar</button>
+    <div v-if="hobbyAberto" class="fundo" @click.self="hobbyAberto = null">
+      <div class="modal">
+        <h3>{{ hobbyAberto.nome }}</h3>
+        <p>{{ hobbyAberto.texto }}</p>
+        <button class="primario" @click="hobbyAberto = null">Fechar</button>
+      </div>
     </div>
 
     <footer>
