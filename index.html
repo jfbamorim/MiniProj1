@@ -28,9 +28,19 @@
       </section>
       <section v-if="seccaoAtiva === 'hobbies'">
         <h2>Hobbies</h2>
-        <p>A preencher.</p>
+        <ul>
+          <li v-for="h in hobbies" :key="h.nome">
+            <button @click="hobbyAberto = h">{{ h.nome }}</button>
+          </li>
+        </ul>
       </section>
     </main>
+
+    <div v-if="hobbyAberto">
+      <h3>{{ hobbyAberto.nome }}</h3>
+      <p>{{ hobbyAberto.texto }}</p>
+      <button @click="hobbyAberto = null">Fechar</button>
+    </div>
 
     <footer>
       <a href="https://pt.linkedin.com/in/jorge-amorim-316969108">LinkedIn</a>
@@ -44,7 +54,15 @@
     createApp({
       setup() {
         const seccaoAtiva = ref('quem');
-        return { seccaoAtiva };
+        const hobbyAberto = ref('null');
+        const hobbies = [
+            { nome: 'Fitboxing', texto: 'A preecnher' },
+            { nome: 'Jogos de tabuleiro', texto: 'A preecnher' },
+            { nome: 'Projetos Pessoais', texto: 'A preecnher' },
+            { nome: 'Leitura', texto: 'A preecnher' },
+            { nome: 'A preechner', texto: 'A preecnher' }
+        ]
+        return { seccaoAtiva, hobbyAberto, hobbies};
       }
     }).mount('#app');
   </script>
