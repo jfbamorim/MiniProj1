@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jorge Amorim - CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
   <style>
     :root {
@@ -28,6 +31,7 @@
     nav button { background: none; border: none; border-bottom: 2px solid transparent; padding: .25rem 0; color: var(--texto-suave); font-weight: 600; }
     nav button:hover { color: var(--texto); }
     nav button.ativo { color: var(--destaque); border-bottom-color: var(--destaque); }
+    .menu-toggle { display: none; padding: .3rem .7rem; font-size: 1.2rem; color: var(--texto); background: none; border: 1px solid var(--linha); border-radius: 8px; }
 
     main { flex: 1; width: 100%; max-width: 760px; margin: 3.5rem auto; padding: 0 1.5rem; }
     h2 { font-size: 2.25rem; line-height: 1.2; margin-bottom: 1.75rem; }
@@ -47,17 +51,29 @@
     footer { display: flex; justify-content: center; gap: 2rem; padding: 2rem 1rem; border-top: 1px solid var(--linha); }
     footer a { color: var(--texto-suave); font-weight: 600; text-decoration: none; }
     footer a:hover { color: var(--destaque); }
+
+    @media (max-width: 640px) {
+      header { padding: 1rem 1.25rem; }
+      .menu-toggle { display: block; }
+      nav { display: none; flex-direction: column; width: 100%; gap: 0; }
+      nav.aberto { display: flex; }
+      nav button { padding: .75rem 0; text-align: left; border-bottom: 1px solid var(--linha); }
+      h2 { font-size: 1.8rem; }
+    }
   </style>
 </head>
 <body>
   <div id="app">
     <header>
       <h1>Jorge Amorim</h1>
-      <nav>
-        <button @click="seccaoAtiva = 'quem'">Quem Sou Eu?</button>
-        <button @click="seccaoAtiva = 'faco'">O que faço?</button>
-        <button @click="seccaoAtiva = 'hobbies'">Hobbies</button>
-      </nav>
+      <button class="menu-toggle" :aria-expanded="menuAberto" aria-controls="menu" aria-label="Menu" @click="menuAberto = !menuAberto">
+        {{ menuAberto ? '✕' : '☰' }}
+      </button>
+        <nav id="menu" :class="{ aberto: menuAberto }">
+            <button :class="{ ativo: seccaoAtiva === 'quem' }" @click="escolher('quem')">Quem Sou Eu?</button>
+            <button :class="{ ativo: seccaoAtiva === 'faco' }" @click="escolher('faco')">O que faço?</button>
+            <button :class="{ ativo: seccaoAtiva === 'hobbies' }" @click="escolher('hobbies')">Hobbies</button>
+        </nav>
     </header>
 
     <main>
@@ -99,15 +115,22 @@
     createApp({
       setup() {
         const seccaoAtiva = ref('quem');
-        const hobbyAberto = ref('null');
+        const hobbyAberto = ref(null);
+        const menuAberto = ref(null);
         const hobbies = [
             { nome: 'Fitboxing', texto: 'A preecnher' },
             { nome: 'Jogos de tabuleiro', texto: 'A preecnher' },
             { nome: 'Projetos Pessoais', texto: 'A preecnher' },
             { nome: 'Leitura', texto: 'A preecnher' },
-            { nome: 'A preechner', texto: 'A preecnher' }
-        ]
-        return { seccaoAtiva, hobbyAberto, hobbies};
+            { nome: 'Aprendizagem musical', texto: 'A preecnher' }
+        ];
+
+        function escolher(seccao) {
+          seccaoAtiva.value = seccao;
+          menuAberto.value = false;
+        }
+
+        return { seccaoAtiva, hobbyAberto, menuAberto, hobbies, escolher };
       }
     }).mount('#app');
   </script>
