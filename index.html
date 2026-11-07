@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
   <style>
     body { font-family: system-ui, sans-serif; color: #333; margin: 0; line-height: 1.6; }
+    button { font: inherit; cursor: pointer; }
     header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid #ddd; }
     nav { display: flex; gap: 1.5rem; }
     nav a { color: #555; text-decoration: none; }
@@ -19,7 +20,7 @@
     footer { padding: 1rem; text-align: center; border-top: 1px solid #ddd; }
     footer a { margin: 0 1rem; color: #555; }
     #app { min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex: 1; width: 100%; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+    main { flex: 1; width: 100%; max-width: 760px; margin: 2rem auto; padding: 0 1rem; box-sizing: border-box;}
     @media (max-width: 640px) {
         .menu-toggle { display: block; }
         nav { display: none; flex-direction: column; width: 100%; }
@@ -43,12 +44,19 @@
 
     <main>
       <section v-if="seccaoAtiva === 'quem-sou-eu'">
-        <h2>Quem Sou Eu?</h2>
-        <p>A preencher.</p>
+          <h2>Quem Sou Eu?</h2>
+          <p>Olá! O meu nome é Jorge Amorim e sou um profissional da área das Tecnologias de Informação, com experiência em desenvolvimento de software, particularmente no ecossistema SAP, onde trabalho como programador ABAP desde 2018.</p>
+          <p>Sou licenciado em Engenharia Informática pelo ISCTE-IUL.</p>
+          <p>Considero-me uma pessoa curiosa, que gosta de compreender como as coisas funcionam e de explorar novas tecnologias. Tenho um interesse particular por arquitetura de software, desenvolvimento web e, mais recentemente, Inteligência Artificial, tanto na componente Generativa como na Agentic.</p>
+          <p>Fora do contexto profissional e académico, gosto de praticar desporto, jogar jogos de tabuleiro, ler e desenvolver pequenos projetos pessoais, onde posso experimentar ideias e aprender coisas novas. Acima de tudo, gosto de desafios.</p>
       </section>
       <section v-if="seccaoAtiva === 'o-que-faco'">
-        <h2>O que faço?</h2>
-        <p>A preencher.</p>
+          <h2>O que faço?</h2>
+          <p>Trabalho na área do desenvolvimento de software, com especial foco no ecossistema SAP, onde desenvolvo soluções empresariais em ABAP.</p>
+          <p>Ao longo do meu percurso profissional, tive também a oportunidade de trabalhar como Full Stack Developer, participando no desenvolvimento de aplicações SAP Fiori, utilizando SAPUI5 no frontend e ABAP no backend.</p>
+          <p>Para além do desenvolvimento de novas funcionalidades, tenho experiência na manutenção e evolução de aplicações empresariais, integração entre sistemas e análise e resolução de problemas técnicos.</p>
+          <p>Em projetos pessoais, procuro explorar outras tecnologias, nomeadamente JavaScript, Node.js e Python. Mais recentemente, tenho dedicado particular atenção à Inteligência Artificial, sobretudo aos modelos de linguagem (LLMs), agentes autónomos e à sua integração em aplicações de software.</p>
+          <p>O meu objetivo é continuar a aprofundar os meus conhecimentos técnicos, especialmente em arquitetura de software, e desenvolver competências que me permitam participar cada vez mais na conceção e desenho de soluções informáticas.</p>
       </section>
       <section v-if="seccaoAtiva === 'hobbies'">
         <h2>Hobbies</h2>
@@ -94,11 +102,11 @@
         const hobbyAberto = ref(null);
         const menuAberto = ref(false);
         const hobbies = [
-            { nome: 'Fitboxing', texto: 'A preecnher' },
-            { nome: 'Jogos de tabuleiro', texto: 'A preecnher' },
-            { nome: 'Projetos Pessoais', texto: 'A preecnher' },
-            { nome: 'Leitura', texto: 'A preecnher' },
-            { nome: 'Aprendizagem musical', texto: 'A preecnher' }
+            { nome: 'Fitboxing', texto: 'O desporto faz parte da minha rotina, e o Fitboxing tornou-se uma das minhas atividades favoritas. É uma excelente forma de começar o dia, manter-me ativo e aliviar o stress, combinando exercício físico, coordenação e intensidade.' },
+            { nome: 'Jogos de tabuleiro', texto: 'Gosto bastante de jogos de tabuleiro, especialmente daqueles que envolvem estratégia, tomada de decisões e alguma criatividade. Tenho uma preferência por jogos que se podem jogar a solo, sobretudo os que apresentam desafios diferentes em cada partida.' },
+            { nome: 'Projetos Pessoais', texto: 'Gosto de aproveitar parte do meu tempo livre para experimentar ideias e desenvolver pequenos projetos de software. Seja a explorar uma tecnologia nova, a trabalhar com Inteligência Artificial ou a criar aplicações por curiosidade, vejo estes projetos como uma forma de aprender enquanto me divirto.' },
+            { nome: 'Leitura', texto: 'A leitura é uma das formas que encontro para aprender e descobrir novas perspetivas. Gosto particularmente de ficção e de clássicos, e de livros que me façam ver o mundo de outra maneira. É também uma oportunidade para desligar um pouco dos ecrãs.' },
+            { nome: 'Aprendizagem musical', texto: 'A música é outro dos meus interesses, e tenho curiosidade em compreender melhor o seu lado prático e criativo. Gosto de aprender novas competências musicais, explorar instrumentos e desenvolver uma relação com a música que vá além de só a ouvir.' }
         ];
 
         window.addEventListener('hashchange', () =>{
