@@ -69,11 +69,11 @@
       <button class="menu-toggle" :aria-expanded="menuAberto" aria-controls="menu" aria-label="Menu" @click="menuAberto = !menuAberto">
         {{ menuAberto ? '✕' : '☰' }}
       </button>
-        <nav id="menu" :class="{ aberto: menuAberto }">
-            <button :class="{ ativo: seccaoAtiva === 'quem' }" @click="escolher('quem')">Quem Sou Eu?</button>
-            <button :class="{ ativo: seccaoAtiva === 'faco' }" @click="escolher('faco')">O que faço?</button>
-            <button :class="{ ativo: seccaoAtiva === 'hobbies' }" @click="escolher('hobbies')">Hobbies</button>
-        </nav>
+      <nav id="menu" :class="{ aberto: menuAberto }">
+        <a href="#/quem-sou-eu" :class="{ ativo: seccaoAtiva === 'quem-sou-eu' }" :aria-current="seccaoAtiva === 'quem-sou-eu' ? 'page' : null" @click="menuAberto = false">Quem Sou Eu?</a>
+        <a href="#/o-que-faco" :class="{ ativo: seccaoAtiva === 'o-que-faco' }" :aria-current="seccaoAtiva === 'o-que-faco' ? 'page' : null" @click="menuAberto = false">O que faço?</a>
+        <a href="#/hobbies" :class="{ ativo: seccaoAtiva === 'hobbies' }" :aria-current="seccaoAtiva === 'hobbies' ? 'page' : null" @click="menuAberto = false">Hobbies</a>
+      </nav>
     </header>
 
     <main>
@@ -114,7 +114,14 @@
 
     createApp({
       setup() {
-        const seccaoAtiva = ref('quem');
+        const vistas = ['quem-sou-eu', 'o-que-faco', 'hobbies']
+
+        function lerHash(){
+            const vista = location.hash.replace('#/', '');
+            return vistas.includes(vista) ? vista : 'quem-sou-eu';
+        }
+
+        const seccaoAtiva = ref(lerHash());
         const hobbyAberto = ref(null);
         const menuAberto = ref(null);
         const hobbies = [
@@ -125,12 +132,11 @@
             { nome: 'Aprendizagem musical', texto: 'A preecnher' }
         ];
 
-        function escolher(seccao) {
-          seccaoAtiva.value = seccao;
-          menuAberto.value = false;
-        }
+        window.addEventListener('hashchange', () =>{
+            seccaoAtiva.value = lerHash();
+        });
 
-        return { seccaoAtiva, hobbyAberto, menuAberto, hobbies, escolher };
+        return { seccaoAtiva, hobbyAberto, menuAberto, hobbies };
       }
     }).mount('#app');
   </script>
